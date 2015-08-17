@@ -1,4 +1,6 @@
-Kari, Carly, Shanna, and marleigh. Gonna rock this.  
+Corinne and Lila are stealing this code for our own evil purposes!!
+
+Kari, Carly, Shanna, and marleigh. Gonna rock this.
 
 # Heroku Link
 - https://shop-primo.herokuapp.com/

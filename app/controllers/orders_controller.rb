@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_login, except: [:edit, :update, :confirmation]
+  before_action :require_login, except: [:edit, :update, :confirmation, :shipping]
 
   def index
     if session[:merchant_id] == params[:merchant_id].to_i
@@ -62,10 +62,12 @@ class OrdersController < ApplicationController
     @redacted_cc = redacted_cc(@order.credit_card)
   end
 
+  def shipping; end
+
   def edit
     # every time a new order_item is added/removed from the cart
     # when the customer adds their payment details
-    # params[:id] is the order.id 
+    # params[:id] is the order.id
     if session[:order_id] == params[:id].to_i
       @order = Order.find(params[:id])
     else

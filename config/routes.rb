@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:edit, :update, :show] do
     get :confirmation
+    get :shipping
   end
 
   get 'merchant/:merchant_id/orders/shipped' => 'orders#shipped', as: "orders_shipped"
@@ -40,7 +41,6 @@ Rails.application.routes.draw do
 
   get '/cart'             =>  'carts#show'
   post '/add_to_cart/:id' =>  'carts#add_to_cart', as: 'add_to_cart'
-
   resources :order_items
 
   # Example resource route with options:

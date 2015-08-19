@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_login, except: [:edit, :update, :confirmation, :shipping]
+  before_action :require_login, except: [:edit, :update, :confirmation, :edit_shipping, :update_shipping]
 
   def index
     if session[:merchant_id] == params[:merchant_id].to_i
@@ -62,7 +62,12 @@ class OrdersController < ApplicationController
     @redacted_cc = redacted_cc(@order.credit_card)
   end
 
-  def shipping; end
+  def edit_shipping; end
+
+  def update_shipping
+    raise
+    # API CLIENT CALLS
+  end
 
   def edit
     # every time a new order_item is added/removed from the cart

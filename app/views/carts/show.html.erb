@@ -50,7 +50,7 @@
   <!-- LINK TO SHIPPING PAGE: Corinne and Lila  -->
   <div class="row">
     <div class="col-md-offset-11">
-      <%= link_to "Checkout", order_shipping_path(current_order.id), class: "btn btn-primary" %>
+      <%= link_to "Checkout", order_edit_shipping_path(current_order.id), class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

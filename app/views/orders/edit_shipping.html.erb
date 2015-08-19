@@ -1,0 +1,11 @@
+<%= form_tag order_update_shipping_path do %>
+  <%= label_tag :country %>
+  <%= text_field_tag :country %>
+  <%= label_tag :state %>
+  <%= text_field_tag :state %>
+  <%= label_tag :city %>
+  <%= text_field_tag :city %>
+  <%= label_tag :zip %>
+  <%= text_field_tag :zip %>
+  <%= submit_tag 'Get Shipping Estimate' %>
+<% end %>

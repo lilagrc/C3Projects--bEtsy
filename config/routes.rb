@@ -29,7 +29,8 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:edit, :update, :show] do
     get :confirmation
-    get :shipping
+    get :edit_shipping
+    post :update_shipping
   end
 
   get 'merchant/:merchant_id/orders/shipped' => 'orders#shipped', as: "orders_shipped"

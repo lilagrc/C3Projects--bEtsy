@@ -67,7 +67,6 @@ class OrdersController < ApplicationController
   def edit_shipping; end
 
   def update_shipping
-    raise
     # TODO: We need to figure out here how we want to send packages to the API
     # Params does not include our package details here, only the form information (destination address)
     # maybe write a scope in our model to find all the products associated with our order

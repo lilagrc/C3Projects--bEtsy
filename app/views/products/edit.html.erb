@@ -26,6 +26,21 @@
         </div>
 
         <div class="form-group">
+          <%= f.label :length %>
+          <%= f.number_field :length, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :width %>
+          <%= f.number_field :width, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :weight %>
+          <%= f.number_field :weight, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
           <%= f.label :active %>
           <%= f.select :active, [['Active', true], ['Inactive', false]], class: "form-control" %>
         </div>

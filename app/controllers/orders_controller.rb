@@ -1,3 +1,5 @@
+require 'shipping_client'
+
 class OrdersController < ApplicationController
   before_action :require_login, except: [:edit, :update, :confirmation, :edit_shipping, :update_shipping]
 
@@ -65,8 +67,8 @@ class OrdersController < ApplicationController
   def edit_shipping; end
 
   def update_shipping
-    raise
     # API CLIENT CALLS
+    ShippingClient.find_shipping_rates(params)
   end
 
   def edit

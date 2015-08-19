@@ -1,5 +1,7 @@
+require 'shipping_client'
+
 class OrdersController < ApplicationController
-  before_action :require_login, except: [:edit, :update, :confirmation]
+  before_action :require_login, except: [:edit, :update, :confirmation, :edit_shipping, :update_shipping]
 
   def index
     if session[:merchant_id] == params[:merchant_id].to_i
@@ -62,10 +64,21 @@ class OrdersController < ApplicationController
     @redacted_cc = redacted_cc(@order.credit_card)
   end
 
+  def edit_shipping; end
+
+  def update_shipping
+    raise
+    # TODO: We need to figure out here how we want to send packages to the API
+    # Params does not include our package details here, only the form information (destination address)
+    # maybe write a scope in our model to find all the products associated with our order
+    # and iterate through them to store our package values?
+    ShippingClient.find_shipping_rates(params)
+  end
+
   def edit
     # every time a new order_item is added/removed from the cart
     # when the customer adds their payment details
-    # params[:id] is the order.id 
+    # params[:id] is the order.id
     if session[:order_id] == params[:id].to_i
       @order = Order.find(params[:id])
     else

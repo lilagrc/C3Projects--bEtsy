@@ -42,14 +42,15 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><strong>ORDER TOTAL: </strong></td>
+        <td><strong>ORDER TOTAL (before shipping): </strong></td>
         <td><strong><%= number_to_currency(@order_total) %></strong></td>
       </tr>
     </table>
   </div>
+  <!-- LINK TO SHIPPING PAGE: Corinne and Lila  -->
   <div class="row">
     <div class="col-md-offset-11">
-      <%= link_to "Checkout", edit_order_path(current_order.id), class: "btn btn-primary" %>
+      <%= link_to "Checkout", order_edit_shipping_path(current_order.id), class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720073857) do
+ActiveRecord::Schema.define(version: 20150819203347) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -72,6 +72,9 @@ ActiveRecord::Schema.define(version: 20150720073857) do
     t.integer  "merchant_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "length",      null: false
+    t.integer  "width",       null: false
+    t.integer  "weight",      null: false
   end
 
   create_table "reviews", force: :cascade do |t|

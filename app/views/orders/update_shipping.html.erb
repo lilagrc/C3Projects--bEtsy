@@ -1,4 +1,15 @@
-SHIPPING INFORMATION/API STUFF
+<table class="table">
+
+  <% @response.each do |key, value| %>
+    <% value.each do |delivery_type| %>
+      <tr>
+        <td><%= delivery_type[0] %></td>
+        <td><%= delivery_type[1] %></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+</table>
 
 <div class="row">
   <div class="col-md-offset-11">

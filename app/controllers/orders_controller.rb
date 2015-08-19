@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
 
   def update_shipping
     # API CLIENT CALLS
-    ShippingClient.find_shipping_rates(params)
+    @response = ShippingClient.find_shipping_rates(params)
   end
 
   def edit

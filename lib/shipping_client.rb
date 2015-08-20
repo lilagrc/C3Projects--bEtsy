@@ -9,6 +9,13 @@ class ShippingClient
     return response
   end
 
+  def self.send_shipping_info(id, method, cost)
+
+    shipping_data = { :shipping_data => set_shipping_data(id, method, cost),
+
+    response = HTTParty.post('http://localhost:3000/shipping/shipping_order', { body: shipping_data, headers: {"Content-Type" => "application/json"} })
+  end
+
   private
 
   def self.set_shipment(params, products)
@@ -27,5 +34,13 @@ class ShippingClient
       },
       products: products
     }
+  end
+
+  def self.set_shipping_data(id, method, cost)
+    {
+      order_id: id,
+      shipping_method: method,
+      shipping_cost: cost
+    }.to_json
   end
 end

@@ -4,7 +4,7 @@
     <% value.each do |delivery_type| %>
       <tr>
         <td><%= delivery_type[0] %></td>
-        <td><%= delivery_type[1] %></td>
+        <td><%= shipping_cost(delivery_type[1]) %></td>
         <td><%= link_to "Select", order_select_shipping_method_path(method: delivery_type[0], shipping_cost: delivery_type[1]) %></td>
       </tr>
     <% end %>

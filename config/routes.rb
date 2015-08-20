@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     get :confirmation
     get :edit_shipping
     post :update_shipping
+    get :add_shipping_method
   end
 
   get 'merchant/:merchant_id/orders/shipped' => 'orders#shipped', as: "orders_shipped"

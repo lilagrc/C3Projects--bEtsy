@@ -64,15 +64,6 @@ class OrdersController < ApplicationController
     @redacted_cc = redacted_cc(@order.credit_card)
   end
 
-  # These two below methods are necessary for shipping api calls
-  def edit_shipping; end
-
-  def update_shipping
-    products = Order.get_products_information_for_shipping_api(params[:order_id])
-
-    @response = ShippingClient.find_shipping_rates(params, products)
-  end
-
   def edit
     # every time a new order_item is added/removed from the cart
     # when the customer adds their payment details
@@ -105,12 +96,6 @@ class OrdersController < ApplicationController
     session[:order_id] = nil # this clears the cart after you've checked out
 
     redirect_to order_confirmation_path(params[:id])
-  end
-
-  def add_shipping_method
-    @shipping_method = params[:method]
-    @shipping_cost = params[:shipping_cost]
-    redirect_to edit_order_path(current_order.id)
   end
 
   def confirmation
@@ -184,6 +169,21 @@ class OrdersController < ApplicationController
       end
     end
     return revenue
+  end
+
+# SHIPPING API METHODS ---------------------------------------------------------
+  def shipping_address_form; end
+
+  def shipping_estimates
+    products = Order.get_products_information_for_shipping_api(params[:order_id])
+
+    @response = ShippingClient.find_shipping_rates(params, products)
+  end
+
+  def select_shipping_method
+    @shipping_method = params[:method]
+    @shipping_cost = params[:shipping_cost]
+    redirect_to edit_order_path(current_order.id)
   end
 
 ############################################################

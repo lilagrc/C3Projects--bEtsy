@@ -1,7 +1,7 @@
 require 'shipping_client'
 
 class OrdersController < ApplicationController
-  before_action :require_login, except: [:edit, :update, :confirmation, :edit_shipping, :update_shipping]
+  before_action :require_login, except: [:edit, :update, :confirmation, :edit_shipping, :update_shipping, :add_shipping_method]
 
   def index
     if session[:merchant_id] == params[:merchant_id].to_i
@@ -98,11 +98,19 @@ class OrdersController < ApplicationController
 
       new_stock = previous_stock.to_i - ordered_stock.to_i
       product.update(stock: new_stock)
+
+      #add call to API that posts params info, then persist this to database
     end
 
     session[:order_id] = nil # this clears the cart after you've checked out
 
     redirect_to order_confirmation_path(params[:id])
+  end
+
+  def add_shipping_method
+    @shipping_method = params[:method]
+    @shipping_cost = params[:shipping_cost]
+    redirect_to edit_order_path(current_order.id)
   end
 
   def confirmation

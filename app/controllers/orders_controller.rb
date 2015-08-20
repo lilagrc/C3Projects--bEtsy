@@ -67,11 +67,20 @@ class OrdersController < ApplicationController
   def edit_shipping; end
 
   def update_shipping
-    # TODO: We need to figure out here how we want to send packages to the API
-    # Params does not include our package details here, only the form information (destination address)
-    # maybe write a scope in our model to find all the products associated with our order
-    # and iterate through them to store our package values?
-    ShippingClient.find_shipping_rates(params)
+    # OPTIMIZE: we could probably put this in its own method (in model or controller?)
+    order_items = Order.find(params[:order_id]).order_items
+    products = []
+    order_items.each do |item|
+      product = {
+        weight: item.product.weight,
+        length: item.product.length,
+        width: item.product.width
+      }
+
+      products << product
+    end
+
+    @response = ShippingClient.find_shipping_rates(params, products)
   end
 
   def edit

@@ -90,8 +90,12 @@ class OrdersController < ApplicationController
       new_stock = previous_stock.to_i - ordered_stock.to_i
       product.update(stock: new_stock)
 
-      #add call to API that posts params info, then persist this to database
     end
+
+    shipping_method = session[:shipping_method]
+      shipping_cost = session[:shipping_cost]
+
+    ShippingClient.send_shipping_info(params[:id], shipping_method, shipping_cost)
 
     session[:order_id] = nil # this clears the cart after you've checked out
 
@@ -186,11 +190,13 @@ class OrdersController < ApplicationController
   end
 
   def select_shipping_method
-    @shipping_method = params[:method]
-    @shipping_cost = params[:shipping_cost]
+    session[:shipping_method] = params[:delivery_method]
+    session[:shipping_cost] = params[:shipping_cost]
 
     redirect_to edit_order_path(current_order.id)
   end
+
+
 
 ############################################################
   private

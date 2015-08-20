@@ -15,7 +15,7 @@
         <td><%= delivery_type[0] %></td>
         <td><%= shipping_cost(delivery_type[1]) %></td>
         <td><%= delivery_date(delivery_type[2]) unless delivery_type[2].nil? %></td>
-        <td><%= link_to "Select", order_select_shipping_method_path(method: delivery_type[0], shipping_cost: delivery_type[1]) %></td>
+        <td><%= link_to "Select", order_select_shipping_method_path(delivery_method: delivery_type[0], shipping_cost: delivery_type[1]) %></td>
       </tr>
     <% end %>
   <% end %>

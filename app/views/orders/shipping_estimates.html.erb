@@ -1,12 +1,15 @@
 <table class="table">
-  <tr>
-    <th>Shipping Type</th>
-    <th>Shipping Cost</th>
-    <th>Estimated Delivery Date</th>
-    <th>Choose Option</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Shipping Type</th>
+      <th>Shipping Cost</th>
+      <th>Estimated Delivery Date</th>
+      <th>Choose Option</th>
+    </tr>
+  </thead>
 
   <% @response.each do |key, value| %>
+    <tr><th colspan="4"><%= key.upcase %> OPTIONS</th></tr>
     <% value.each do |delivery_type| %>
       <tr>
         <td><%= delivery_type[0] %></td>

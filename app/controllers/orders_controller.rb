@@ -64,21 +64,11 @@ class OrdersController < ApplicationController
     @redacted_cc = redacted_cc(@order.credit_card)
   end
 
+  # These two below methods are necessary for shipping api calls
   def edit_shipping; end
 
   def update_shipping
-    # OPTIMIZE: we could probably put this in its own method (in model or controller?)
-    order_items = Order.find(params[:order_id]).order_items
-    products = []
-    order_items.each do |item|
-      product = {
-        weight: item.product.weight,
-        length: item.product.length,
-        width: item.product.width
-      }
-
-      products << product
-    end
+    products = Order.get_products_information_for_shipping_api(params[:order_id])
 
     @response = ShippingClient.find_shipping_rates(params, products)
   end

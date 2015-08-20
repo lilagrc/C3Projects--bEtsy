@@ -182,11 +182,17 @@ class OrdersController < ApplicationController
     products = Order.get_products_information_for_shipping_api(params[:order_id])
 
     @response = ShippingClient.find_shipping_rates(params, products)
+
+    if @response.code == 400
+      flash.now[:error] = "Please enter a valid address."
+      render :shipping_address_form
+    end
   end
 
   def select_shipping_method
     session[:shipping_method] = params[:delivery_method]
     session[:shipping_cost] = params[:shipping_cost]
+
     redirect_to edit_order_path(current_order.id)
   end
 

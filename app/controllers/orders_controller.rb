@@ -94,7 +94,7 @@ class OrdersController < ApplicationController
       shipping_cost = session[:shipping_cost]
 
       @response = ShippingClient.send_shipping_info(params[:id],shipping_method, shipping_cost)
-
+      raise
     end
 
     session[:order_id] = nil # this clears the cart after you've checked out

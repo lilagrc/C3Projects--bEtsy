@@ -108,6 +108,8 @@ class OrdersController < ApplicationController
 
       new_stock = previous_stock.to_i - ordered_stock.to_i
       product.update(stock: new_stock)
+
+      #add call to API that posts params info, then persist this to database
     end
 
     session[:order_id] = nil # this clears the cart after you've checked out

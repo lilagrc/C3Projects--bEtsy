@@ -1,7 +1,7 @@
 require 'shipping_client'
 
 class OrdersController < ApplicationController
-  before_action :require_login, except: [:edit, :update, :confirmation, :edit_shipping, :update_shipping, :add_shipping_method]
+  before_action :require_login, except: [:edit, :update, :confirmation, :shipping_address_form, :shipping_estimates, :select_shipping_method]
 
   def index
     if session[:merchant_id] == params[:merchant_id].to_i

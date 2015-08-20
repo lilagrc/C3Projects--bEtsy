@@ -90,12 +90,12 @@ class OrdersController < ApplicationController
       new_stock = previous_stock.to_i - ordered_stock.to_i
       product.update(stock: new_stock)
 
-      shipping_method = session[:shipping_method]
+    end
+
+    shipping_method = session[:shipping_method]
       shipping_cost = session[:shipping_cost]
 
-      @response = ShippingClient.send_shipping_info(params[:id],shipping_method, shipping_cost)
-      raise
-    end
+    ShippingClient.send_shipping_info(params[:id], shipping_method, shipping_cost)
 
     session[:order_id] = nil # this clears the cart after you've checked out
 

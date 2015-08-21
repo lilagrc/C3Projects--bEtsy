@@ -5,7 +5,7 @@ class ShippingClient
   # SHIPPING_INFO_URI = "http://shipping-info.herokuapp.com/shipping/shipping_order"
 
   SHIPPING_RATES_URI = Rails.env.production? ? "https://shipping-info.herokuapp.com/shipping" : "http://localhost:3000/shipping"
-  SHIPPING_INFO_URI = Rails.env.production? ? "http://shipping-info.herokuapp.com/shipping/shipping_order" : "http://localhost:3000/shipping/shipping_order"
+  SHIPPING_INFO_URI = Rails.env.production? ? "https://shipping-info.herokuapp.com/shipping/shipping_order" : "http://localhost:3000/shipping/shipping_order"
 
 
   def self.find_shipping_rates(params, products)

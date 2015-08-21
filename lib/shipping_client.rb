@@ -1,11 +1,16 @@
 require 'HTTParty'
 
 class ShippingClient
-SHIPPING_URI = Rails.env.production? ? "http://shipping-info.herokuapp.com/shipping" : "http://localhost:3000/shipping"
+  # SHIPPING_RATES_URI = "https://shipping-info.herokuapp.com/shipping"
+  # SHIPPING_INFO_URI = "http://shipping-info.herokuapp.com/shipping/shipping_order"
+
+  SHIPPING_URI = Rails.env.production? ? "https://shipping-info.herokuapp.com/shipping" : "http://localhost:3000/shipping"
+  SHIPPING_URI = Rails.env.production? ? "http://shipping-info.herokuapp.com/shipping/shipping_order" : "http://localhost:3000/shipping/shipping_order"
+
 
   def self.find_shipping_rates(params, products)
     shipment = set_shipment(params, products)
-    response = HTTParty.get(SHIPPING_URI, query: shipment)
+    response = HTTParty.get(SHIPPING_RATES_URI, query: shipment)
     return response
   end
 
@@ -13,7 +18,7 @@ SHIPPING_URI = Rails.env.production? ? "http://shipping-info.herokuapp.com/shipp
 
     shipping_data = set_shipping_data(id, method, cost)
 
-    HTTParty.post('http://localhost:3000/shipping/shipping_order', { body: shipping_data, headers: {"Content-Type" => "application/json"} })
+    HTTParty.post(SHIPPING_INFO_URI, { body: shipping_data, headers: {"Content-Type" => "application/json"} })
   end
 
   private

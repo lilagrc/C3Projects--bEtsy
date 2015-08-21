@@ -65,6 +65,8 @@ class OrdersController < ApplicationController
   end
 
   def edit
+     @order_items = current_order.order_items
+     @order_total = calc_order_total + (session[:shipping_cost].to_f/100)
     # every time a new order_item is added/removed from the cart
     # when the customer adds their payment details
     # params[:id] is the order.id
@@ -92,12 +94,15 @@ class OrdersController < ApplicationController
 
     end
 
+    #sets shipping info into variables to send to Shipping API
     shipping_method = session[:shipping_method]
-      shipping_cost = session[:shipping_cost]
+    shipping_cost = session[:shipping_cost]
 
     ShippingClient.send_shipping_info(params[:id], shipping_method, shipping_cost)
 
-    session[:order_id] = nil # this clears the cart after you've checked out
+    session[:order_id] = nil # this clears the cart and shipping choices after you've checked out
+    session[:shipping_method] = nil
+    session[:shipping_cost] = nil
 
     redirect_to order_confirmation_path(params[:id])
   end
@@ -189,6 +194,7 @@ class OrdersController < ApplicationController
     end
   end
 
+  # sets shipping choice into session to carry over to checkout
   def select_shipping_method
     session[:shipping_method] = params[:delivery_method]
     session[:shipping_cost] = params[:shipping_cost]

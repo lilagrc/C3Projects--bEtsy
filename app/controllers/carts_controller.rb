@@ -16,15 +16,15 @@ class CartsController < ApplicationController
     return @unit_total
   end
 
-  def calc_order_total
-    @order_total = 0
+  # def calc_order_total
+  #   @order_total = 0
 
-    @order_items.each do |order_item|
-      @order_total += order_item.revenue
-    end
+  #   @order_items.each do |order_item|
+  #     @order_total += order_item.revenue
+  #   end
 
-    return @order_total
-  end
+  #   return @order_total
+  # end
 
   def add_to_cart
     product = Product.find(params[:id])

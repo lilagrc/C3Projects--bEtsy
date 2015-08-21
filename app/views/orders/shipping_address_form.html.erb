@@ -1,13 +1,23 @@
-<h3>Add Shipping Address:</h3>
+<h3>Get Shipping Estimates:</h3>
 
-<%= form_tag order_shipping_estimates_path do %>
-  <%= label_tag :country %>
-  <%= text_field_tag :country %>
-  <%= label_tag :state %>
-  <%= text_field_tag :state %>
-  <%= label_tag :city %>
-  <%= text_field_tag :city %>
-  <%= label_tag :zip %>
-  <%= text_field_tag :zip %>
-  <%= submit_tag 'Get Shipping Estimate' %>
-<% end %>
+<div class="form-group">
+  <%= form_tag order_shipping_estimates_path do %>
+
+    <%= label_tag :address %>
+    <%= text_field_tag :address %>
+
+    <%= label_tag :city %>
+    <%= text_field_tag :city %>
+
+    <%= label_tag :state %>
+    <%= select_tag(:state, options_for_select(@states)) %>
+
+    <%= label_tag :zip %>
+    <%= text_field_tag :zip %>
+
+    <%= label_tag :country %>
+    <%= text_field_tag (:country) %>
+
+    <%= submit_tag 'Get Shipping Estimate' %>
+  <% end %>
+</div>

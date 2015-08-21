@@ -68,4 +68,17 @@ class ApplicationController < ActionController::Base
 
     return cart_units
   end
+
+  # calculate order totals
+  def calc_order_total
+    @order_items = current_order.order_items
+
+    @order_total = 0
+
+    @order_items.each do |order_item|
+      @order_total += order_item.revenue
+    end
+
+    return @order_total
+  end
 end

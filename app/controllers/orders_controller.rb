@@ -65,6 +65,8 @@ class OrdersController < ApplicationController
   end
 
   def edit
+     @order_items = current_order.order_items
+     @order_total = calc_order_total + (session[:shipping_cost].to_f/100)
     # every time a new order_item is added/removed from the cart
     # when the customer adds their payment details
     # params[:id] is the order.id
@@ -92,21 +94,30 @@ class OrdersController < ApplicationController
 
     end
 
+    #sets shipping info into variables to send to Shipping API
     shipping_method = session[:shipping_method]
-      shipping_cost = session[:shipping_cost]
+    shipping_cost = session[:shipping_cost]
 
     ShippingClient.send_shipping_info(params[:id], shipping_method, shipping_cost)
 
-    session[:order_id] = nil # this clears the cart after you've checked out
+    session[:order_id] = nil # this clears the cart and shipping choices after you've checked out
 
     redirect_to order_confirmation_path(params[:id])
   end
 
   def confirmation
+
     @order = Order.find(params[:order_id])
     @order_items = @order.order_items
     @total = get_total(@order_items)
     @customer_info = get_customer_info(@order)
+    @shipping_cost = session[:shipping_cost].to_f
+    @shipping_method =  session[:shipping_method]
+    @shipping_estimate = session[:shipping_estimate]
+
+    session[:shipping_method] = nil
+    session[:shipping_cost] = nil
+    session[:shipping_estimate] = nil
   end
 
   def get_total(order_items)
@@ -176,7 +187,9 @@ class OrdersController < ApplicationController
   end
 
 # SHIPPING API METHODS ---------------------------------------------------------
-  def shipping_address_form; end
+  def shipping_address_form
+    @states = %w(AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MA MI MN MO MS MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY)
+  end
 
   def shipping_estimates
     products = Order.get_products_information_for_shipping_api(params[:order_id])
@@ -189,9 +202,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  # sets shipping choice into session to carry over to checkout
   def select_shipping_method
     session[:shipping_method] = params[:delivery_method]
     session[:shipping_cost] = params[:shipping_cost]
+    session[:shipping_estimate] = params[:shipping_estimate]
 
     redirect_to edit_order_path(current_order.id)
   end

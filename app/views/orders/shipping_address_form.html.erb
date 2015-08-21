@@ -1,10 +1,10 @@
 <h3>Get Shipping Estimates:</h3>
 
 <div class="form-group">
-  <%= form_tag order_shipping_estimates_path, :html => {class: 'form-group'} do %>
+  <%= form_tag order_shipping_estimates_path do %>
 
     <%= label_tag :address %>
-    <%= text_field_tag :address, {:class => 'form-control'} %>
+    <%= text_field_tag :address %>
 
     <%= label_tag :city %>
     <%= text_field_tag :city %>

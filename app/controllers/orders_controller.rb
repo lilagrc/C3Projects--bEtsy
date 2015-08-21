@@ -101,17 +101,23 @@ class OrdersController < ApplicationController
     ShippingClient.send_shipping_info(params[:id], shipping_method, shipping_cost)
 
     session[:order_id] = nil # this clears the cart and shipping choices after you've checked out
-    session[:shipping_method] = nil
-    session[:shipping_cost] = nil
 
     redirect_to order_confirmation_path(params[:id])
   end
 
   def confirmation
+
     @order = Order.find(params[:order_id])
     @order_items = @order.order_items
     @total = get_total(@order_items)
     @customer_info = get_customer_info(@order)
+    @shipping_cost = session[:shipping_cost].to_f
+    @shipping_method =  session[:shipping_method]
+    @shipping_estimate = session[:shipping_estimate]
+
+    session[:shipping_method] = nil
+    session[:shipping_cost] = nil
+    session[:shipping_estimate] = nil
   end
 
   def get_total(order_items)
@@ -200,6 +206,7 @@ class OrdersController < ApplicationController
   def select_shipping_method
     session[:shipping_method] = params[:delivery_method]
     session[:shipping_cost] = params[:shipping_cost]
+    session[:shipping_estimate] = params[:shipping_estimate]
 
     redirect_to edit_order_path(current_order.id)
   end

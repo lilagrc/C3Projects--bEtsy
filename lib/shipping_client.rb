@@ -2,7 +2,7 @@ require 'httparty'
 
 class ShippingClient
   SHIPPING_RATES_URI = "https://shipping-info.herokuapp.com/shipping"
-  SHIPPING_INFO_URI = "http://shipping-info.herokuapp.com/shipping/shipping_order"
+  SHIPPING_INFO_URI = "https://shipping-info.herokuapp.com/shipping/shipping_order"
 
   # SHIPPING_RATES_URI = Rails.env.production? ? "https://shipping-info.herokuapp.com/shipping" : "http://localhost:3000/shipping"
   # SHIPPING_INFO_URI = Rails.env.production? ? "https://shipping-info.herokuapp.com/shipping/shipping_order" : "http://localhost:3000/shipping/shipping_order"
@@ -32,10 +32,10 @@ class ShippingClient
         :zip => "90210"
       },
       :destination => {
-        :country => params[:country],
-        :state => params[:state],
-        :city => params[:city],
-        :zip => params[:zip]
+        :country => "US",
+        :state => "WA",
+        :city => "Seattle",
+        :zip => "98102"
       },
       :products => products,
       :order_id => params[:order_id]

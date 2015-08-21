@@ -43,28 +43,28 @@
 <fieldset>
   <legend>Add Payment</legend>
     <div class="col-md-6">
-      <%= f.text_field :name %>
+      <%= f.text_field :name, required: true %>
 
-      <%= f.text_field :email %>
+      <%= f.text_field :email, required: true %>
 
-      <%= f.text_field :street %>
+      <%= f.text_field :street,required: true %>
 
-      <%= f.text_field :city %>
+      <%= f.text_field :city, required: true %>
 
-      <%= f.text_field :state %>
+      <%= f.text_field :state, options = {maxlength: 2} %>
 
-      <%= f.text_field :zip %>
+      <%= f.text_field :zip, required: true %>
     </div>
 
     <div class="col-md-6">
 
-      <%= f.text_field :credit_card %>
+      <%= f.text_field :credit_card, options = {maxlength: 16} %>
 
-      <%= f.text_field :exp_date %>
+      <%= f.text_field :exp_date, required: true %>
 
-      <%= f.text_field :cvv %>
+      <%= f.text_field :cvv, options = {maxlength: 3}%>
 
-      <%= f.text_field :billing_zip %>
+      <%= f.text_field :billing_zip, required: true %>
     </div>
  </fieldset>
 

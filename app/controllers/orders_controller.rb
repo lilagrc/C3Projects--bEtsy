@@ -181,7 +181,9 @@ class OrdersController < ApplicationController
   end
 
 # SHIPPING API METHODS ---------------------------------------------------------
-  def shipping_address_form; end
+  def shipping_address_form
+    @states = %w(AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MA MI MN MO MS MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY)
+  end
 
   def shipping_estimates
     products = Order.get_products_information_for_shipping_api(params[:order_id])

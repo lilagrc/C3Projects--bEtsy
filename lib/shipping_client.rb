@@ -1,4 +1,4 @@
-require 'HTTParty'
+require 'httparty'
 
 class ShippingClient
   # SHIPPING_RATES_URI = "https://shipping-info.herokuapp.com/shipping"

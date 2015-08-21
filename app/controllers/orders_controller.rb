@@ -193,12 +193,15 @@ class OrdersController < ApplicationController
 
   def shipping_estimates
     products = Order.get_products_information_for_shipping_api(params[:order_id])
-
-    @response = ShippingClient.find_shipping_rates(params, products)
-
-    if @response.code == 400
-      flash.now[:error] = "Please enter a valid address."
-      render :shipping_address_form
+    begin
+      status = Timeout::timeout(10) {
+        @response = ShippingClient.find_shipping_rates(params, products) }
+        if @response.code == 400
+          flash.now[:error] = "Please enter a valid address."
+          render :shipping_address_form
+        end
+    rescue Timeout::Error
+      redirect_to :back, :flash => { :error => "Action timed out. Please try again." }
     end
   end
 

@@ -1,4 +1,5 @@
 require 'httparty'
+require 'timeout'
 
 class ShippingClient
   # SHIPPING_RATES_URI = "https://shipping-info.herokuapp.com/shipping"
@@ -11,8 +12,9 @@ class ShippingClient
   def self.find_shipping_rates(params, products)
     shipment = set_shipment(params, products)
     response = HTTParty.get(SHIPPING_RATES_URI, :query => shipment)
-    return response
   end
+
+
 
   def self.send_shipping_info(id, method, cost)
 

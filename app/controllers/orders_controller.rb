@@ -197,8 +197,8 @@ class OrdersController < ApplicationController
       status = Timeout::timeout(10) {
         @response = ShippingClient.find_shipping_rates(params, products) }
         if @response.code == 400
-          flash.now[:error] = "Please enter a valid address."
-          render :shipping_address_form
+          flash[:error] = "Please enter a valid address."
+          redirect_to order_shipping_address_form_path
         end
     rescue Timeout::Error
       redirect_to :back, :flash => { :error => "Action timed out. Please try again." }
